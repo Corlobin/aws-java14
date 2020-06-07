@@ -1,6 +1,8 @@
 package com.biz.costumer.model;
 
+import com.biz.costumer.payload.CostumerPayload;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +17,7 @@ import javax.validation.constraints.Size;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity(name = "costumer")
 public class Costumer {
 
@@ -31,4 +34,12 @@ public class Costumer {
     @NotEmpty
     @Email
     private String email;
+
+    public static Costumer of(CostumerPayload costumerPayload) {
+        return Costumer.builder()
+                .cpf(costumerPayload.getCpf())
+                .name(costumerPayload.getName())
+                .email(costumerPayload.getEmail())
+                .build();
+    }
 }
